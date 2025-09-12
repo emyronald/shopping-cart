@@ -3,8 +3,9 @@ import "./App.css";
 import { ShoppingBag } from "lucide-react";
 import shopping from "./assets/shopping-man.png";
 import Navbar from "./Navbar";
+import SideBar from "./SideBar";
 
-export default function Shop() {
+export default function App() {
   return (
     <>
       <div className="px-10 pb-20">
@@ -16,8 +17,8 @@ export default function Shop() {
             </h1>
             <div>
               <h2 className="text-lg font-semibold">
-                Your one stop for all your clothing needs. Have a look around
-                and you might see something you like.
+                Your one stop for all your clothing needs and more. Have a look
+                around and you might see something you like.
               </h2>
               <NavLink to="/shop">
                 <button className="btn flex gap-1.5 items-center mt-6">
@@ -32,10 +33,11 @@ export default function Shop() {
         </div>
       </div>
       <footer>
-        <p className="text-center p-5 text-sm text-white-500">
+        <p className="text-center p-5 text-sm text-white-500 ">
           &copy; 2024 EmStore. All rights reserved.
         </p>
       </footer>
+      
     </>
   );
 }
