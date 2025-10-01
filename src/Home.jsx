@@ -6,9 +6,9 @@ import shopping from "./assets/shopping-man.png";
 export default function Home() {
   return (
     <>
-      <div className="px-10 pb-20 mt-8">
+      <div className="px-10 py-10">
         <div className="main justify-between items-center flex flex-col md:flex-row gap-10">
-          <div className="text max-w-xl flex flex-col gap-6">
+          <div className="text max-w-xl flex flex-col gap-6 ">
             <h1 className="text-4xl font-bold ">
               Welcome to <span className="color-secondary">EMSTORE</span>.
             </h1>
@@ -25,7 +25,7 @@ export default function Home() {
             </div>
           </div>
           <div>
-            <img src={shopping} alt="" className="shadow-md max-w-s" />
+            <img src={shopping} alt="" className="shadow-md max-w-s w-[100%]" />
           </div>
         </div>
       </div>
