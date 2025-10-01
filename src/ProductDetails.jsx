@@ -14,7 +14,7 @@ export default function ProductDetail() {
   const [viewDetails, setViewDetails] = useState(false);
   const { id } = useParams();
   const location = useLocation();
-  const { cart, quantity, incrementQuantity, decrementQuantity, addToCart } =
+  const { quantity, incrementQuantity, decrementQuantity, addToCart } =
     useOutletContext();
 
   // Initialize cart with localStorage data immediately
@@ -115,7 +115,6 @@ export default function ProductDetail() {
             </button>
           </Link>
         </div>
-        <pre>{JSON.stringify(cart, null, 2)}</pre>
       </main>
     </>
   );
