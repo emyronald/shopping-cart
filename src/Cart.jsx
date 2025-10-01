@@ -43,11 +43,10 @@ export default function Cart() {
   return (
     <>
       {cart.length > 0 ? (
-        <div className="cart">
-          <h1 className="text-3xl font-bold mx-10 my-5 flex gap-10">
-            Your Cart{" "}
+        <div className="cart ">
+          <div className="flex gap-5 items-center flex-wrap mx-10 my-5">
             <button className="btn flex gap-1 items-center" onClick={clearCart}>
-             <RemoveShoppingCartIcon/> Clear Cart
+              <RemoveShoppingCartIcon /> Clear Cart
             </button>
             <Link to="/shop">
               <button className="btn-short !py-2 w-40 flex gap-1 justify-center items-center">
@@ -55,7 +54,12 @@ export default function Cart() {
                 Back to Shop
               </button>
             </Link>
+          </div>
+
+          <h1 className="text-3xl font-bold mx-10 mb-5">
+            Your Cart({cart.length})
           </h1>
+
           <div className="flex flex-col mx-10  mb-10 justify-between items-center gap-10 lg:flex-row lg:items-start">
             <div className="flex flex-col gap-8 cart-items">
               {cart.map((item) => (
