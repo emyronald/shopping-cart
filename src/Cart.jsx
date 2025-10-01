@@ -46,7 +46,7 @@ export default function Cart() {
       {cart.length > 0 ? (
         <div className="cart">
           <h1 className="text-3xl font-bold mx-10 my-5 flex gap-10">Your Cart <button className="btn" onClick={clearCart}>Clear Cart</button></h1>
-          <div className="flex flex-col mx-10  mb-10 justify-between gap-10 lg:flex-row">
+          <div className="flex flex-col mx-10  mb-10 justify-between items-center gap-10 lg:flex-row lg:items-start">
             <div className="flex flex-col gap-8 cart-items">
               {cart.map((item) => (
                 <CartCard
