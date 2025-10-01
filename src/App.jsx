@@ -1,47 +1,119 @@
-import { NavLink } from "react-router";
+import { Outlet } from "react-router";
+import { useState, useEffect } from "react";
 import "./App.css";
-import { ShoppingBag } from "lucide-react";
-import shopping from "./assets/shopping-man.png";
 import Navbar from "./Navbar";
-import SideBar from "./SideBar";
+import Footer from "./Footer";
+import axios from "axios";
 
 export default function App() {
+  const [cart, setCart] = useState([]);
+  const [quantity, setQuantity] = useState(1);
+  const [products, setProducts] = useState([]);
+  const [error, setError] = useState(null);
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  // ✅ Restore cart from localStorage
+  useEffect(() => {
+    const savedCart = localStorage.getItem("cart");
+    if (savedCart) {
+      try {
+        setCart(JSON.parse(savedCart));
+      } catch (err) {
+        console.error("Error parsing cart from localStorage:", err);
+        setCart([]);
+      }
+    }
+    setIsInitialized(true);
+  }, []);
+
+  // ✅ Save cart + auto-update totalQty when cart changes
+  const totalQty = cart.reduce((acc, item) => acc + item.quantity, 0);
+
+  useEffect(() => {
+    if (isInitialized) {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+  }, [cart, isInitialized]);
+  // ✅ Fetch products
+  useEffect(() => {
+    const controller = new AbortController();
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get("https://fakestoreapi.com/products", {
+          signal: controller.signal,
+        });
+        setProducts(response.data);
+      } catch (err) {
+        if (!controller.signal.aborted) {
+          setError(`Error fetching products: ${err.message}`);
+          console.error(err);
+        }
+      }
+    };
+    fetchProducts();
+    return () => controller.abort();
+  }, []);
+
+  // ✅ Cart functions
+  function addToCart(product) {
+    setCart((prev) => {
+      const existing = prev.find((item) => item.id === product.id);
+      if (existing) {
+        return prev.map((item) =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + quantity }
+            : item
+        );
+      } else {
+        return [...prev, { ...product, quantity }];
+      }
+    });
+
+    // ✅ Reset quantity back to 1 after adding
+    setQuantity(1);
+  }
+
+  function incrementQuantity() {
+    setQuantity((prev) => prev + 1);
+  }
+
+  function decrementQuantity() {
+    if (quantity > 1) {
+      setQuantity((prev) => prev - 1);
+    }
+  }
+
+  function removeItem(item) {
+    setCart((prev) => prev.filter((i) => i.id !== item.id));
+  }
+
+  function clearCart() {
+    setCart([]);
+    localStorage.removeItem("cart");
+  }
+
   return (
     <>
-      <div className="px-10 pb-20">
-        <Navbar />
-        <div className="main justify-between items-center flex flex-col md:flex-row gap-10">
-          <div className="text max-w-xl flex flex-col gap-6">
-            <h1 className="text-4xl font-bold ">
-              Welcome to <span className="color-secondary">EMSTORE</span>.
-            </h1>
-            <div>
-              <h2 className="text-lg font-semibold">
-                Your one stop for all your clothing needs and more. Have a look
-                around and you might see something you like.
-              </h2>
-              <NavLink to="/shop">
-                <button className="btn flex gap-1.5 items-center mt-6">
-                  Shop Now <ShoppingBag />
-                </button>
-              </NavLink>
-            </div>
-          </div>
-          <div>
-            <img src={shopping} alt="" className="shadow-2xl max-w-s" />
-          </div>
-        </div>
-      </div>
-      <footer>
-        <p className="text-center p-5 text-sm text-white-500 ">
-          &copy; 2024 EmStore. All rights reserved.
-        </p>
-      </footer>
-      
+      <Navbar totalQty={totalQty} />
+      <main>
+        <Outlet
+          context={{
+            cart,
+            setCart,
+            quantity,
+            setQuantity,
+            products,
+            addToCart,
+            incrementQuantity,
+            decrementQuantity,
+            totalQty,
+            removeItem,
+            clearCart,
+            error,
+          }}
+        />
+      </main>
+      <Footer />
     </>
   );
 }
-
-//rgb(238,254,255) background color
-//rgb(65,103,162) lighter blue
-//oklch(71.5% 0.143 215.221) cyan

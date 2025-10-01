@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 :root {
-  --main-color: rgb(238, 254, 255);
-  --primary-color: rgb(65, 103, 162);
-  --secondary-color: oklch(60.9% 0.126 221.723);
+  --main-color: rgba(238, 254, 255, 1);
+  --primary-color: rgba(65, 103, 162, 1);
+  --secondary-color: rgba(0, 146, 184, 1);
 }
 
 * {
@@ -11,18 +11,28 @@
 }
 
 body {
-  background-color: var(--main-color);
+  /* background-color: rgba(0, 146, 184, .18) */
+  @apply bg-gray-200;
+
 }
 
 .color-primary {
   color: var(--primary-color);
 }
 
+.bg-primary {
+  background-color: var(--primary-color);
+}
+.bg-secondary {
+  background-color: var(--secondary-color);
+}
+
 .color-secondary {
   color: var(--secondary-color);
 }
 
-.btn {
+.btn,
+.btn-short {
   background-color: var(--primary-color);
   color: white;
   padding: 0.5rem 1rem;
@@ -33,13 +43,24 @@ body {
   transition: background-color 0.3s ease;
 }
 
+.btn-short {
+  padding: 0.1rem 0.5rem;
+  font-size: 1rem;
+}
+
 footer {
   margin-top: 2rem;
   padding: 1rem;
   text-align: center;
-  
+
   color: white;
   @apply bg-gray-600 h-40 flex justify-center items-center;
+}
+
+header {
+ 
+  background-color: white;
+  
 }
 
 .nav-mobile {
@@ -51,7 +72,7 @@ footer {
 .desktop-nav li {
   cursor: pointer;
   padding: 0.5rem 1.2rem;
-  border-radius: 5px;
+
   @apply text-gray-700;
 }
 
@@ -95,7 +116,7 @@ footer {
   border-bottom: 2px solid var(--primary-color);
 }
 .mobile-active {
- border-bottom: 2px solid white;
+  border-bottom: 2px solid white;
 }
 
 .cart-badge {
@@ -119,6 +140,74 @@ footer {
   font-size: 1.5rem;
   font-weight: bold;
   margin: 1rem 0;
- @apply text-gray-700 mx-10 border-b-2 border-cyan-700 pb-2 mt-15 mb-5;
-
+  @apply text-gray-700 mx-10 border-b-2 border-cyan-700 pb-2 mt-15 mb-5;
 }
+
+.details-card {
+  background-color: white;
+  box-shadow: 6px 6px 12px rgba(65, 103, 162, 0.1);
+  border-radius: 0.5rem;
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.details-img {
+  min-width: 13rem;
+  min-height: 13rem;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  margin: 1rem 2rem;
+}
+
+.details {
+  flex: 2;
+  justify-content: center;
+}
+
+.cart-img-container {
+  height: 8rem;
+  width: 8rem;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .details-card {
+    flex-direction: column;
+  }
+  .details-img {
+    min-width: 20rem;
+    min-height: 20rem;
+    max-width: 25rem;
+    max-height: 25rem;
+    align-self: center;
+  }
+}
+
+.cart-card {
+  background-color: white;
+}
+
+.cart-items {
+  flex: 1;
+}
+
+.cart-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 0.5rem;
+}
+
+.cart {
+  min-height: calc(100vh - (128px + 88px));
+}
+
+

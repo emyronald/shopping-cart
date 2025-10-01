@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import routes from "./routes/routes.jsx";
 
 
-import App from "./App.jsx";
+
 
 const router = createBrowserRouter(routes);
 

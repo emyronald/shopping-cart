@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
+  <g id="print">
+    <path d="M416 192H96c-17.7 0-32 14.3-32 32v128h64v96h256v-96h64V224c0-17.7-14.3-32-32-32zm-64 224H160v-96h192v96zm32-160a16 16 0 1 1 0-32 16 16 0 0 1 0 32z"/>
+    <path d="M384 64H128v96h256V64z"/>
+  </g>
+</svg>
